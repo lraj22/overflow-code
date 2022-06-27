@@ -3,10 +3,10 @@ document.getElementById("time").onkeydown=function(expires){
 	if(expires.key=="Enter")document.getElementById("submit").click();
 }
 document.getElementById("submit").onclick=function(){
-	setExpiryItem("key","This is 'key'!",document.getElementById("time").value);
+	expireStorage.setItem("key","This is 'key'!",document.getElementById("time").value);
 }
 document.getElementById("retrieve").onclick=function(){
-	var r=getExpiryItem("key");
+	var r=expireStorage.getItem("key");
 	if(r.msg=="Success")
 		document.getElementById("value").textContent=r.val;
 	else if(r.msg=="Not set")
