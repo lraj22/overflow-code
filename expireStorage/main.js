@@ -1,16 +1,35 @@
 // Just a file to make index.html work. For the expireStorage code, go to expireStorage.js
-document.getElementById("time").onkeydown=function(expires){
-	if(expires.key=="Enter")document.getElementById("submit").click();
-}
-document.getElementById("submit").onclick=function(){
-	expireStorage.setItem("key","This is 'key'!",document.getElementById("time").value);
-}
-document.getElementById("retrieve").onclick=function(){
-	var r=expireStorage.getItem("key");
-	if(r.msg=="Success")
-		document.getElementById("value").textContent=r.val;
-	else if(r.msg=="Not set")
-		document.getElementById("value").innerHTML="<span style='color:red'>Please set key before retrieving it!</span>";
-	else if(r.msg=="Expired")
-		document.getElementById("value").innerHTML="<span style='color:red'>'key' has expired</span>";
-}
+
+document.querySelectorAll("[id]").forEach(function(e){window[e.id]=e;});
+time.onkeydown=function(e){
+	if(e.key==="Enter")submit.click();
+};
+submit.onclick=function(){
+	expireStorage.setItem(setKey.value,content.value,time.value);
+};
+retrieve.onclick=function(){
+	var r=expireStorage.getItem(getKey.value);
+	switch(r.msg){
+		case "Success":
+			value.textContent=r.val;
+			break;
+		case "Not set":
+			value.innerHTML='<span style="color:red">Please set the key before retrieving it!</span>';
+			break;
+		case "Expired":
+			value.innerHTML='<span style="color:red">That key has expired</span>';
+			break;
+		case "Not expireStorage key":
+			value.innerHTML='<span style="color:red">That key exists, but it was not created by expireStorage.</span>';
+			break;
+		default:
+			value.innerHTML="<span style='color:red'><b>SOMETHING HAS GONE WRONG</b></span>";
+	}
+	expires.textContent=r.expires;
+};
+doer.onchange=function(){
+	expireStorage.deleteOnExpiredRead=this.checked;
+};
+storageType.onchange=function(){
+	expireStorage.storage=window[this.value];
+};

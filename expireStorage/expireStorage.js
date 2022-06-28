@@ -1,5 +1,5 @@
 window.expireStorage={
-	"storage": sessionStorage, // localStorage and localforage are also options if you change this
+	"storage": localStorage, // sessionStorage and localforage are also options if you change this
 	"deleteOnExpiredRead": true, // delete if expired and tried to read?
 	"setItem": function(key, value, expires){
 		expireStorage.storage.setItem(key, JSON.stringify({"e": Date.now()+parseInt(expires), "v": value}));

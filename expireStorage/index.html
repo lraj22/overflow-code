@@ -3,13 +3,39 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>Storage Timeout</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<style>
+			* {
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+			}
+			hr{
+				margin:1.5rem auto;
+			}
+		</style>
 	</head>
 	<body>
-		<p>Enter the expire time for key in sessionStorage</p>
-		<input type="number" id="time"/><button id="submit">Submit</button>
+		<h1>expiryStorage test</h1>
+		<p><b>Set Key</b></p>
+		<p>Enter details here to set the key in the configured storage.</p>
+		<label for="setKey">Key: </label><input id="setKey"/><br/>
+		<label for="content">Content: </label><input id="content"/><br/>
+		<label for="time">Milliseconds before expiring: </label><input type="number" id="time"/><br/><br/>
+		<button id="submit">Set key</button>
 		<hr/>
+		<p><b>Get Key</b></p>
+		<p>Retrieve the key if it is not already expired.</p>
+		<label for="key">Key: </label><input id="getKey"/><br/><br/>
 		<button id="retrieve">Retrieve key</button>
 		<p id="value"></p>
+		<p id="expires"></p>
+		<hr/>
+		<p><b>Settings</b></p>
+		<input type="checkbox" id="doer" checked="checked"/><label for="doer"> Delete On Expired Read</label><br/><br/>
+		<label for="storageType">Location of storage: </label><select id="storageType">
+			<option value="localStorage">localStorage</option>
+			<option value="sessionStorage">sessionStorage</option>
+		</select>
+		<p>Note: if you use localforage instead, you can use that too.</p>
 		<script src="expireStorage.js"></script>
 		<script src="main.js"></script>
 	</body>
