@@ -4,13 +4,32 @@
 		<meta charset="utf-8"/>
 		<title>Alter URL Before Page Exit</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<style>
+			*{
+				font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Try to alter the URL before the page exits.</h1>
-		<a href="https://github.com/lraj22/">Go somewhere</a>
+		<h1>Click the link to go somewhere.</h1>
+		<a href="https://github.com/lraj22/" id="link">Go to the original URL</a><span> (See settings below)</span>
+		<p>If the onbeforeunload event succeeds, you will instead be lead to the redirect URL.</p>
+		<p>You can also try to leave the page via the URL box or other methods.</p>
+		<hr/>
+		<h2>Settings</h2>
+		<label for="original">Original URL: </label><input id="original" value="https://github.com/lraj22/"/><br/><br/>
+		<label for="redirect">Redirect URL: </label><input id="redirect" value="https://github.com/"/><br/><br/>
+		<label for="retfalse">Return false in onbeforeunload? </label><input type="checkbox" id="retfalse"/><br/><br/>
 		<script>
+			[].slice.call(document.querySelectorAll("[id]")).forEach(function(e){window[e.id]=e;});
+			
+			original.onkeydown=original.onkeyup=original.onchange=function(){
+				link.href=this.value;
+			};
+			
 			window.onbeforeunload=function(){
-				location.href="https://github.com/";
+				location.href=redirect.value;
+				if(retfalse.checked)return false;
 			};
 		</script>
 	</body>
